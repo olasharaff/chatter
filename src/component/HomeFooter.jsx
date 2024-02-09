@@ -8,7 +8,7 @@ export default function HomeFooter() {
         <div className="mb-8">
           <img src={logo} alt="FooterLogo" />
         </div>
-        <div className="flex lg:gap-36 gap-20">
+        <div className="flex flex-wrap lg:gap-36 gap-20">
           <div>
             <h1 className="mb-5">Explore</h1>
             <ul className="space-y-2">
