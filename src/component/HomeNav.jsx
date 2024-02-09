@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from '../assets/img/chatter.svg'
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 export default function HomeNav() {
     const [isHeaderOpen, setIsHeaderOpen] = useState(false)
@@ -25,10 +26,10 @@ export default function HomeNav() {
 
         <div className="font-medium lg:flex hidden gap-3">
           <button className="rounded-md border border-[#543EE0] px-6 py-1.5 hover:bg-[#543EE0] hover:text-white">
-            Sign in
+            <Link to="/auth"> Sign in</Link>
           </button>
           <button className="rounded-md border border-[#543EE0] px-6 py-1.5 hover:bg-[#543EE0] hover:text-white">
-            Sign up
+            <Link to="/auth"> Sign up</Link>
           </button>
         </div>
         <div className="lg:hidden pl-5 text-3xl">
