@@ -1,26 +1,88 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
+import {
+ 
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import OAuth from "../utilities/OAuth";
+import {FaLinkedin } from "react-icons/fa";
 
 export default function SignUp() {
-    const [isFormData, setIsFormData] = useState(
-        {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            comPassword: '',
-        }
-    )
-    const handleSelectChange = (e) => {
-        setIsFormData((prevState) => ({
-            ...prevState, [e.target.id]: e.target.value
-        }))
+  const [isFormData, setIsFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    comPassword: "",
+  });
+
+  const handleSelectChange = (e) => {
+    setIsFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const { firstName, lastName, email, password, comPassword } = isFormData;
+  const navigate = useNavigate();
+
+  async function onSubmitForm (e){
+    e.preventDefault();
+
+    if (password !== comPassword) {
+      toast.error("Passwords do not match");
+      return;
     }
-    const {firstName, lastName, email, number, password} = isFormData
-    const onSubmitForm = (e) => {
-        e.preventDefault()
-        console.log(isFormData)
+
+    try {
+     
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredentials.user;
+        console.warn("what is happening... 1");
+
+      console.warn(user)
+        console.warn("what is happening... 2");
+
+      await updateProfile(user, { displayName: `${firstName} ${lastName}` });
+
+
+
+        console.warn("what is happening... 3");
+
+      const formDataCopy = { ...isFormData };
+      delete formDataCopy.password
+
+        console.warn("what is happening... 4");
+
+      formDataCopy.timestamp  = serverTimestamp();
+  console.warn("what is happening... 5");
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      
+        console.warn("what is happening... 6");
+       
+      navigate("/dashboard");
+
+       console.warn("what is happening... 7");
+
+      toast.success("Account created successfully");
+
+      console.warn("what is happening... 8");
+     
+    } catch (error) {
+      console.warn(error.message);
+      toast.error("Error creating account");
     }
+  };
+
   return (
     <div>
       <div className="flex flex-col justify-center items-center">
@@ -39,7 +101,7 @@ export default function SignUp() {
                   type="text"
                   id="firstName"
                   value={firstName}
-                  placeholder="John doe"
+                  placeholder="John"
                   onChange={handleSelectChange}
                   className="w-full rounded-md px-5 py-1.5  border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
                 />
@@ -50,9 +112,9 @@ export default function SignUp() {
                 </label>
                 <input
                   type="text"
-                  id="username"
+                  id="lastName"
                   value={lastName}
-                  placeholder="Johndoe"
+                  placeholder="Doe"
                   onChange={handleSelectChange}
                   className="w-full rounded-md px-5 py-1.5  border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
                 />
@@ -68,21 +130,7 @@ export default function SignUp() {
                 type="email"
                 id="email"
                 value={email}
-                placeholder="you@email.com"
-                onChange={handleSelectChange}
-                className="w-full rounded-md px-5 py-1.5  border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
-              />
-            </div>
-            <div className="mb-3">
-              <label className="text-sm">
-                Number
-                <span className="text-[#7234F5] text-xs">*</span>
-              </label>
-              <input
-                type="number"
-                id="number"
-                value={number}
-                placeholder="0212345678"
+                placeholder="JohnDoe@email.com"
                 onChange={handleSelectChange}
                 className="w-full rounded-md px-5 py-1.5  border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
               />
@@ -92,9 +140,10 @@ export default function SignUp() {
                 Password <span className="text-[#7234F5] text-xs">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 value={password}
+                autoComplete="off"
                 onChange={handleSelectChange}
                 placeholder="Password (min. of 8 characters)"
                 className="w-full rounded-md px-5 py-1.5 border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
@@ -106,29 +155,30 @@ export default function SignUp() {
                 <span className="text-[#7234F5] text-xs">*</span>
               </label>
               <input
-                type="text"
-                id="password"
-                value={password}
+                type="password"
+                id="comPassword"
+                autoComplete="off"
+                value={comPassword}
                 onChange={handleSelectChange}
                 placeholder="Password (min. of 8 characters)"
                 className="w-full rounded-md px-5 py-1.5 border-none bg-gray-100 hover:bg-gray-200 hover:shadow-sm transition duration-150 ease-in-out"
               />
             </div>
             <div className="text-center mb-3 text-black">
-              <button className=" w-full lg:text-base text-sm lg:px-28  px-10 py-2 rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]">
+              <button
+                type="submit"
+                className="w-full lg:text-base text-sm lg:px-28 px-10 py-2 rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]"
+              >
                 Create account
               </button>
+              <OAuth />
               <button
                 type="button"
-                className="mt-3 w-full lg:text-base text-sm lg:px-28  px-10 py-2  rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]"
+                disabled
+                className="flex items-center whitespace-nowrap w-full cursor-not-allowed justify-center mt-3 lg:text-base text-sm lg:px-28 px-10 py-2  rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]"
               >
-                Sign up with Google
-              </button>
-              <button
-                type="button"
-                className="mt-3 w-full lg:text-base text-sm lg:px-28  px-10 py-2  rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]"
-              >
-                Sign up with linkedin
+                <FaLinkedin className="text-2xl mx-2 bg-[#0077B5] text-white rounded-md border-white" />
+                Continue with Linkedin
               </button>
             </div>
           </form>
