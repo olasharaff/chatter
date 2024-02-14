@@ -1,8 +1,8 @@
 import HomeNav
- from "../component/HomeNav";
- import HomeFooter from "../component/HomeFooter";
- import HomeSlider from "../component/HomeSlider";
- import HomeAbout from "../component/HomeAbout";
+ from "../component/Home/HomeNav";
+ import HomeFooter from "../component/Home/HomeFooter";
+ import HomeSlider from "../component/Home/HomeSlider";
+ import HomeAbout from "../component/Home/HomeAbout";
 function Home() {
     return (
       <div>

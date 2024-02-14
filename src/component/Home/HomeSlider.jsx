@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeSliderData1, HomeSliderData2 } from "../data/HomeData.js";
+import { HomeSliderData1, HomeSliderData2 } from "../../data/HomeData.js";
 
 export default function HomeSlider() {
   return (

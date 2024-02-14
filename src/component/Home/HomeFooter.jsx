@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/img/chatter.svg";
+import logo from "../../assets/img/chatter.svg";
 
 export default function HomeFooter() {
   return (

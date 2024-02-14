@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import authImg from "../assets/img/signUp.svg";
-import Register from "../component/SignUp"
-import LogIn from "../component/SignIn"
+import Register from "../component/Home/SignUp"
+import LogIn from "../component/Home/SignIn"
 
 
 export default function Authenticate() {

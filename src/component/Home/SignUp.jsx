@@ -4,12 +4,12 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import OAuth from "../utilities/OAuth";
+import OAuth from "../../utilities/OAuth";
 import {FaLinkedin } from "react-icons/fa";
 
 export default function SignUp() {

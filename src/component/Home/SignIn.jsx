@@ -1,6 +1,11 @@
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
+import { auth } from '../../firebase'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function SignIn() {
+  const navigate = useNavigate()
     const [isFormData, setIsFormData] = useState(
         {
             email: '',
@@ -14,9 +19,19 @@ export default function SignIn() {
             ...prevState, [e.target.id]: e.target.value
         }))
     }
-    const onSubmitForm = (e) => {
+    async function onSubmitForm(e){
         e.preventDefault()
-        console.log(isFormData)
+
+       try {
+        const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+        if(userCredentials.user){
+            navigate('/dashboard')
+            toast.success('Welcome back')
+        }
+
+       } catch (error) {
+        toast.error('Invalid email or password')
+       }
     }
   return (
     <div>
@@ -55,7 +70,8 @@ export default function SignIn() {
 
             <div className="text-center mt-6 mb-6">
               <button
-                type="button"
+
+                type="submit"
                 className="mt-3 w-full lg:text-base text-sm lg:px-28  px-10 py-2  rounded-md hover:text-white  border-2  hover:bg-[#543EE0] focus:bg-[#543EE0]"
               >
                Log in
