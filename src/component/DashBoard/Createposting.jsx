@@ -146,33 +146,33 @@ async function onSubmitContent(e) {
     return <Spinner/>
   }
   function onChangeForm(e) {
-    const { id } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+    const { id, type, checked, files, value } = e.target;
 
-     let boolean = null;
-     if (e.target.value === "true") {
-       boolean = true;
-     }
-     if (e.target.value === "false") {
-       boolean = false;
-     }
-   if (e.target.files) {
-     setFormData((prevState) => ({
-       ...prevState,
-       images:  e.target.files,
-     }));
-     //  if it is not image, then text/boolean/number
-   }
-   if (!e.target.files) {
-     setFormData((prevState) => ({
-       ...prevState,
-       [e.target.id]: boolean ?? e.target.value,
-     }));
-   }
+    if (type === "checkbox") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [id]: checked,
+      }));
+    } else if (type === "file") {
+      setFormData((prevState) => ({
+        ...prevState,
+        images: files,
+      }));
+    } else {
+      let boolean = null;
+      if (value === "true") {
+        boolean = true;
+      }
+      if (value === "false") {
+        boolean = false;
+      }
+      setFormData((prevState) => ({
+        ...prevState,
+        [id]: boolean ?? value,
+      }));
+    }
   }
+
   return (
     <div className="max-w-3xl mx-auto border-2 rounded-md my-4 h-full">
       <form onSubmit={onSubmitContent}>

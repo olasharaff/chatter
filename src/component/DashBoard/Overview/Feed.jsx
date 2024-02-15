@@ -61,7 +61,7 @@ export default function Feed() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto border-2 mb-1 rounded-md px-4">
+        <div className="max-w-2xl mx-auto border-2 mb-1 rounded-md">
           {activeContent === "foryou" && <Foryou />}
           {activeContent === "feature" && <Feature />}
           {activeContent === "recent" && <Recent />}

@@ -33,13 +33,18 @@ export default function Foryou() {
   }
   return (
     <div>
-      
       {postings.map((posting) => (
-        <div key={posting.id}>
-          <img src={posting.imgUrls} alt='posting'/>
-          <h3>{posting.title}</h3>
-          <p>{posting.content}</p>
-         
+        <div className="border-b-2">
+          <div key={posting.id} className="max-w-lg mb-3 px-4 py-2 ">
+          
+            <h3 className="text-lg font-bold mb-2">{posting.title}</h3>
+            <p className="text-sm text-[#626262] mb-2">{posting.content}</p>
+            <img
+              src={posting.imgUrls}
+              alt="posting"
+              className="rounded-md mb-2 shadow-lg hover:shadow-xl focus:shadow-2xl transition duration-150 ease-in-out object-cover"
+            />
+          </div>
         </div>
       ))}
     </div>

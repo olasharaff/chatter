@@ -14,7 +14,7 @@ import {FaLinkedin } from "react-icons/fa";
 import Spinner from "../../utilities/Spinner";
 
 export default function SignUp() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [isFormData, setIsFormData] = useState({
     firstName: "",
     lastName: "",
@@ -75,7 +75,7 @@ export default function SignUp() {
       navigate("/dashboard");
 
        console.warn("what is happening... 7");
-      setLoading(false)
+      setLoading(true)
       toast.success("Account created successfully");
 
       console.warn("what is happening... 8");
