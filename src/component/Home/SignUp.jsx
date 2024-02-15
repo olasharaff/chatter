@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import OAuth from "../../utilities/OAuth";
 import {FaLinkedin } from "react-icons/fa";
+import Spinner from "../../utilities/Spinner";
 
 export default function SignUp() {
+  const [loading, setLoading] = useState(true)
   const [isFormData, setIsFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,6 +22,7 @@ export default function SignUp() {
     password: "",
     comPassword: "",
   });
+
 
   const handleSelectChange = (e) => {
     setIsFormData((prevState) => ({
@@ -72,7 +75,7 @@ export default function SignUp() {
       navigate("/dashboard");
 
        console.warn("what is happening... 7");
-
+      setLoading(false)
       toast.success("Account created successfully");
 
       console.warn("what is happening... 8");
@@ -82,6 +85,9 @@ export default function SignUp() {
       toast.error("Error creating account");
     }
   };
+  if(loading){
+    return <Spinner/>
+  }
 
   return (
     <div>

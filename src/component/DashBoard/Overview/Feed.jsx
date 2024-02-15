@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Recent from '../DashBoard/Recent';
-import Feature from '../DashBoard/Feature';
-import Foryou from '../DashBoard/Foryou';
-import Createposting from './Createposting';
+import Recent from './Recent'
+import Feature from './Feature';
+import Foryou from './Foryou';
+import Createposting from '../Createposting';
 
 export default function Feed() {
-  const [activeContent, setActiveContent] = useState('');
+  const [activeContent, setActiveContent] = useState('foryou');
 
   return (
     <div className="m-32 px-24">

@@ -5,6 +5,14 @@ import draft from "../../assets/img/Vector-2.svg";
 import analytic from "../../assets/img/analytic.svg";
 import bookmark from "../../assets/img/Vector.svg";
 import trending from "../../assets/img/trending-tag.svg";
+import Programming from '../DashBoard/TrendingTags/Programming'
+import DataScience from "../DashBoard/TrendingTags/DataScience";
+import Technology from "../DashBoard/TrendingTags/Technology";
+import Machine from "../DashBoard/TrendingTags/MachineLearning";
+import Politics from "../DashBoard/TrendingTags/Politics";
+import Account from "../DashBoard/Personal/Account"
+import Notification from "../DashBoard/Personal/Notification";
+
 import { IoPersonOutline, IoNotificationsOutline } from "react-icons/io5";
 import axios from "axios";
 import { auth } from "../../firebase";
@@ -12,11 +20,11 @@ import { auth } from "../../firebase";
 import logo from "../../assets/img/chatter.svg";
 import { useNavigate } from "react-router-dom";
 
-import Analytics from "./Analytics";
-import Feed from "./Feed";
-import Draft from "./Draft";
-import Bookmark from "./Bookmark";
-import Teamblog from "./Teamblog";
+import Analytics from '../DashBoard/Overview/Analytics'
+import Feed from "../DashBoard/Overview/Feed";
+import Draft from "../DashBoard/Overview/Draft";
+import Bookmark from "../DashBoard/Overview/Bookmark";
+import Teamblog from "../DashBoard/Overview/Teamblog";
 export default function DashBars() {
   const [search, setSearch] = useState("");
   const [userPicture, setUserPicture] = useState("");
@@ -86,7 +94,7 @@ export default function DashBars() {
           <p className="mb-6">Overview</p>
           <ul className="px-5 text-center text-xs text-[#626262] font-medium mb-5">
             <li
-              className={`flex whitespace-nowrap gap-3 mb-2 ${
+              className={`flex whitespace-nowrap gap-3 mb-2 cursor-pointer ${
                 activeContent === "feed" ? " text-[#543EE0] cursor-pointer" : ""
               }`}
               onClick={() => handleButtonClick("feed")}
@@ -95,7 +103,7 @@ export default function DashBars() {
               Feed
             </li>
             <li
-              className={`flex whitespace-nowrap gap-3 mb-2 ${
+              className={`flex whitespace-nowrap gap-3 mb-2 cursor-pointer ${
                 activeContent === "bookmark"
                   ? "text-[#543EE0] cursor-pointer"
                   : ""
@@ -106,7 +114,7 @@ export default function DashBars() {
               Bookmarks
             </li>
             <li
-              className={`flex whitespace-nowrap gap-3 mb-2 ${
+              className={`flex whitespace-nowrap gap-3 mb-2 cursor-pointer ${
                 activeContent === "teamblog"
                   ? "text-[#543EE0] cursor-pointer"
                   : ""
@@ -117,7 +125,7 @@ export default function DashBars() {
               Team blogs
             </li>
             <li
-              className={`flex whitespace-nowrap gap-3 mb-2 ${
+              className={`flex whitespace-nowrap gap-3 mb-2 cursor-pointer ${
                 activeContent === "draft" ? "text-[#543EE0] cursor-pointer" : ""
               }`}
               onClick={() => handleButtonClick("draft")}
@@ -126,7 +134,7 @@ export default function DashBars() {
               Draft
             </li>
             <li
-              className={`flex whitespace-nowrap gap-3 mb-2 ${
+              className={`flex whitespace-nowrap gap-3 mb-2 cursor-pointer ${
                 activeContent === "analytic"
                   ? "text-[#543EE0] cursor-pointer"
                   : ""
@@ -142,20 +150,88 @@ export default function DashBars() {
             <img src={trending} alt="" className="text-xs" />
           </h1>
           <ul className="text-xs text-[#626262] mb-5 ">
-            <li className="px-5 mb-2">Programming</li>
-            <li className="px-5 mb-2">Data Science</li>
-            <li className="px-5 mb-2">Technology</li>
-            <li className="px-5 mb-2">Machine Learning</li>
-            <li className="px-5 mb-2">Politics</li>
-            <li className="px-5 mb-2">See all</li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "programming"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("programming")}
+            >
+              Programming
+            </li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "data-science"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("data-science")}
+            >
+              Data Science
+            </li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "technology"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("technology")}
+            >
+              Technology
+            </li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "machine-learning"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("machine-learning")}
+            >
+              Machine Learning
+            </li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "politics"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("politics")}
+            >
+              Politics
+            </li>
+            <li
+              className={`mb-2 cursor-pointer px-5 ${
+                activeContent === "see-all"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("see-all")}
+            >
+              See all
+            </li>
           </ul>
           <h1 className=" mb-4 ">Personal</h1>
           <ul className="text-xs text-[#626262] font-normal">
-            <li className=" flex whitespace-nowrap gap-3 px-5 mb-3 items-center">
+            <li
+              className={`flex whitespace-nowrap gap-3 mb-3 px-5 items-center cursor-pointer ${
+                activeContent === "account"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("account")}
+            >
               <IoPersonOutline className="text-lg" />
               Account
             </li>
-            <li className="flex whitespace-nowrap items-center gap-2 px-5 mb-5">
+            <li
+              className={`flex whitespace-nowrap gap-3 mb-3 px-5 items-center cursor-pointer ${
+                activeContent === "notification"
+                  ? "text-[#543EE0] cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleButtonClick("notification")}
+            >
               <IoNotificationsOutline className="text-lg" />
               Notification
             </li>
@@ -168,7 +244,14 @@ export default function DashBars() {
         {activeContent === "bookmark" && <Bookmark />}
         {activeContent === "teamblog" && <Teamblog />}
         {activeContent === "draft" && <Draft />}
-        {activeContent === "analytic" && <Analytics />}
+        {activeContent === "analytics" && <Analytics />}
+        {activeContent === "programming" && <Programming />}
+        {activeContent === "data-science" && <DataScience />}
+        {activeContent === "technology" && <Technology />}
+        {activeContent === "machine-learning" && <Machine />}
+        {activeContent === "politics" && <Politics />}
+        {activeContent === "account" && <Account />}
+        {activeContent === "notification" && <Notification />}
       </div>
     </div>
   );

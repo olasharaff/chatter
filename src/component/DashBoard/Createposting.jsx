@@ -33,6 +33,11 @@ export default function Createposting() {
     {
       title: "",
       content: "",
+      programming: false,
+      dataSciences: false,
+      technology: false,
+      machineLearning: false,
+      politics: false,
       images: {}
 
   })
@@ -40,12 +45,19 @@ export default function Createposting() {
     const {
        title,
       content,
+      programming,
+      dataSciences,
+      technology,
+      machineLearning,
+      politics,
       images,
     } = formData;
 
 async function onSubmitContent(e) {
   e.preventDefault();
   setIsLoading(true);
+
+ 
  
   if (images.length > 2) {
     setIsLoading(false);
@@ -125,6 +137,7 @@ async function onSubmitContent(e) {
   !copyFormData.offer && delete copyFormData.discountedPrice;
   
    await addDoc(collection(db, "postings"), copyFormData);
+   
   setIsLoading(false);
   toast.success("Listing created successfully");
   // navigate(`/category/${copyFormData.type}/${docRef.id}`);
@@ -133,22 +146,35 @@ async function onSubmitContent(e) {
     return <Spinner/>
   }
   function onChangeForm(e) {
+    const { id } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+
+     let boolean = null;
+     if (e.target.value === "true") {
+       boolean = true;
+     }
+     if (e.target.value === "false") {
+       boolean = false;
+     }
    if (e.target.files) {
      setFormData((prevState) => ({
        ...prevState,
-       images: e.target.files,
+       images:  e.target.files,
      }));
      //  if it is not image, then text/boolean/number
    }
    if (!e.target.files) {
      setFormData((prevState) => ({
        ...prevState,
-       [e.target.id]: e.target.value,
+       [e.target.id]: boolean ?? e.target.value,
      }));
    }
   }
   return (
-    <div className="max-w-3xl mx-auto border-2 rounded-md my-4 h-screen">
+    <div className="max-w-3xl mx-auto border-2 rounded-md my-4 h-full">
       <form onSubmit={onSubmitContent}>
         <div className=" py-4 px-3">
           <div className="flex justify-between">
@@ -214,6 +240,77 @@ async function onSubmitContent(e) {
               required
               className="w-full h-screen border rounded px-3 py-2 text-lg text-gray-700 bg-white border-gray-300 transition duration-150 ease-in-out focus:text-gray-700 focus:border-slate-600 mb-5"
             />
+            {/* ===========>HASH TAGS */}
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 ">
+              <div className="flex flex-nowrap gap-2  items-center">
+                <em className="text-xs font-medium text-[#626262]">
+                  #Programming
+                </em>
+
+                <input
+                  type="checkbox"
+                  id="programming"
+                  checked={programming}
+                  onChange={onChangeForm}
+                  className=""
+                />
+              </div>
+              {/* data-science */}
+              <div className="flex flex-nowrap gap-2 items-center">
+                <em className="text-xs font-medium text-[#626262]">
+                  #dataSciences
+                </em>
+
+                <input
+                  type="checkbox"
+                  id="dataSciences"
+                  checked={dataSciences}
+                  onChange={onChangeForm}
+                  className=""
+                />
+              </div>
+              {/* technology */}
+              <div className="flex flex-nowrap gap-2 items-center">
+                <em className="text-xs font-medium text-[#626262]">
+                  #technology
+                </em>
+
+                <input
+                  type="checkbox"
+                  id="technology"
+                  checked={technology}
+                  onChange={onChangeForm}
+                  className=""
+                />
+              </div>
+              {/* machine-learning */}
+              <div className=" flex flex-nowrap items-center gap-2">
+                <em className="text-xs  font-medium text-[#626262]">
+                  #machineLearning
+                </em>
+                <input
+                  type="checkbox"
+                  id="machineLearning"
+                  checked={machineLearning}
+                  onChange={onChangeForm}
+                  className=""
+                />
+              </div>
+              {/* politics */}
+              <div className="flex flex-nowrap gap-2 items-center ">
+                <em className="text-xs font-medium text-[#626262]">
+                  #Politics
+                </em>
+
+                <input
+                  type="checkbox"
+                  id="politics"
+                  checked={politics}
+                  onChange={onChangeForm}
+                  className=""
+                />
+              </div>
+            </div>
           </div>
         </div>
       </form>
