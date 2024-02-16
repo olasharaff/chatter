@@ -1,11 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Suspense, lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Authenticated from "./pages/Authenticate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./component/DashBoard/DashBars";
-import DashBoard from "./pages/DashBoard";
-import Home from './pages/Home'
-import CreatePosting from './component/DashBoard/Createposting'
+
+import CreatePosting from "./component/DashBoard/Createposting";
+import Spinner from "./utilities/Spinner";
+const Home  = lazy(() => import ("./pages/Home"))
+const DashBoard = lazy(() => import("./pages/DashBoard"))
+
 
 function App() {
   return (
@@ -26,13 +35,15 @@ function AppContent() {
 
   return (
     <>
-      {showHeader() && <Header />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Authenticated />} />
-        <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/create-posting" element={<CreatePosting />} />
-      </Routes>
+      <Suspense fallback={<Spinner/>}>
+        {showHeader() && <Header />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Authenticated />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/create-posting" element={<CreatePosting />} />
+        </Routes>
+      </Suspense>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
