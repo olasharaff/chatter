@@ -8,12 +8,15 @@ import {
 import Authenticated from "./pages/Authenticate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./component/DashBoard/DashBars";
-
+import Header from "./component/DashBoard/DashSideBars";
+import PrivateRoute from './utilities/PrivateRoute.jsx'
 import CreatePosting from "./component/DashBoard/Createposting";
 import Spinner from "./utilities/Spinner";
 const Home  = lazy(() => import ("./pages/Home"))
-const DashBoard = lazy(() => import("./pages/DashBoard"))
+const Feed = lazy(() => import("./component/DashBoard/Overview/Feed"))
+const Bookmark = lazy(() => import("./component/DashBoard/Overview/Bookmark"))
+const TeamBlog = lazy(() => import("./component/DashBoard/Overview/Teamblog"))
+
 
 
 function App() {
@@ -35,13 +38,24 @@ function AppContent() {
 
   return (
     <>
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         {showHeader() && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Authenticated />} />
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/create-posting" element={<CreatePosting />} />
+          <Route path="/bookmark" element={<PrivateRoute />}>
+            <Route path="/bookmark" element={<Bookmark />} />
+          </Route>
+          <Route path="/team-blog" element={<PrivateRoute />}>
+            <Route path="/team-blog" element={<TeamBlog />} />
+          </Route>
+          <Route path="/dashboard" element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Feed />} />
+          </Route>
+          
+          <Route path="/create-posting" element={<PrivateRoute />}>
+            <Route path="/create-posting" element={<CreatePosting />} />
+          </Route>
         </Routes>
       </Suspense>
       <ToastContainer

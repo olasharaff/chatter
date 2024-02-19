@@ -1,26 +1,22 @@
-import {  onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { auth} from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
-export default function useAuthStatus() {
-  const [isLogIn, setIsLogIn] = useState(false);
+export default function useAuthStatu() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
+  
   useEffect(() => {
-    // const auth = getAuth();
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    
+    onAuthStateChanged(auth, (user) => {
+     
       if (user) {
-        setIsLogIn(true);
+        setLoggedIn(true);
       }
       setCheckingStatus(false);
     });
-
-    return () => {
-      unsubscribe(); // Unsubscribe from the listener when component unmounts
-    };
-
   }, []);
-
-  return [isLogIn, checkingStatus];
+  return { loggedIn, checkingStatus };
 }

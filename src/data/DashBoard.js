@@ -3,13 +3,14 @@ import team from '../assets/img/Vector-1.svg'
 import draft from '../assets/img/Vector-2.svg'
 import analytic from '../assets/img/analytic.svg'
 import bookmark from '../assets/img/Vector.svg'
+import { IoPersonOutline, IoNotificationsOutline } from "react-icons/io5";
 
-const SideBar1 = [
+const Overview = [
     {
         id: 1,
         icon: feed ,
         text: 'Feed',
-        url: '/feed'
+        url: '/dashboard'
     },
      {
         id: 2,
@@ -37,10 +38,53 @@ const SideBar1 = [
     },
 ]
 
-const SideBar2 = [
+const TrendingTags = [
     {
+        id: 1,
+        text: 'Programming',
+        url: '/programming'
 
+    },
+    {
+        id: 2,
+        text: 'Data Science',
+        url: '/data-science'
+    },
+    {
+        id: 3,
+        text: 'Technology',
+        url: '/technology'
+    },
+    {
+        id: 4,
+        text: 'Machine Learning',
+        url: '/machine-learning'
+    },
+    {
+        id: 5,
+        text: 'Politics',
+        url: '/politics'
+    },
+    {
+        id:6,   
+        text: 'See All',
+        url: '/see-all'
     }
 ]
 
-export {SideBar1, SideBar2}
+const Personal = [
+    {
+        id: 1,
+        text: 'Account',
+        url: '/account',
+        icon: <IoPersonOutline/>
+    },
+    {
+        id: 2,
+        text: 'Notification',
+        url: '/notification',
+          icon: <IoNotificationsOutline/>   
+    }
+]
+
+export { Overview, TrendingTags, Personal };
