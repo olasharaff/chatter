@@ -1,5 +1,5 @@
 
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDoc, getDocs, orderBy, doc as docs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../firebase';
 import Spinner from '../../../utilities/Spinner';
@@ -20,16 +20,30 @@ export default function Foryou() {
     const fetchPostings = async () => {
       try {
         const response = await axios.get(
-          "https://randomuser.me/api/?results=2"
+          "https://randomuser.me/api/?results=1"
         )
-        console.log(response)
+       
         const data = response.data.results[0];
       setRandomPicture(data);
-        const querySnapshot = await getDocs(collection(db, "postings"));
+        const querySnapshot = await getDocs(
+          collection(db, "postings"),
+          orderBy("timeStamp", "asc")
+        );
         const postingsData = [];
-        querySnapshot.forEach((doc) => {
-          postingsData.push({ id: doc.id, ...doc.data() });
-        });
+       await Promise.all(
+         querySnapshot.docs.map(async (doc) => {
+           const userRef = doc.data().userRef; // Assuming userRef is the uid of the user who posted
+           const userDoc = await getDoc(docs(db, "users", userRef));
+           if (userDoc.exists()) {
+             const userData = userDoc.data();
+             postingsData.push({
+               id: doc.id,
+               data: doc.data(),
+               user: userData,
+             });
+           }
+         })
+       );
         setPostings(postingsData);
         setLoading(false);
       } catch (error) {
@@ -57,25 +71,25 @@ export default function Foryou() {
                 />
               </div>
               <div className="text-2xl font-bold">
-                <span>{randomPicture.name.first} </span>
-                <span>{randomPicture.name.last}</span>
+                <span>{posting.user.firstName} </span>
+                <span>{posting.user.lastName}</span>
 
                 <div className="text-xs font-normal text-[#626262]">
                   <Moment format="MMM DD, YYYY">
-                    {posting.timeStamp?.toDate()}
+                    {posting.data.timeStamp?.toDate()}
                   </Moment>
                 </div>
               </div>
             </div>
 
-            <h3 className="text-lg font-bold mb-1">{posting.title}</h3>
+            <h3 className="text-lg font-bold mb-1">{posting.data.title}</h3>
             <div className="flex whitespace-nowrap gap-1 items-center text-xs font-medium mb-2">
               <MdOutlineMenuBook />
-              <Moment fromNow>{posting.timeStamp?.toDate()}</Moment>
+              <Moment fromNow>{posting.data.timeStamp?.toDate()}</Moment>
             </div>
-            <p className="text-sm text-[#626262] mb-2">{posting.content}</p>
+            <p className="text-sm text-[#626262] mb-2">{posting.data.content}</p>
             <img
-              src={posting.imgUrls}
+              src={posting.data.imgUrls}
               alt="posting"
               lazy
               className="rounded-md mb-2 shadow-lg hover:shadow-xl focus:shadow-2xl transition duration-150 ease-in-out object-cover"
@@ -86,7 +100,7 @@ export default function Foryou() {
               <div className="flex whitespace-nowrap items-center space-x-1">
                 <HiOutlineChartSquareBar className="text-lg " />
                 <Moment format="HHSS" className="">
-                  {posting.timeStamp?.toDate()}
+                  {posting.data.timeStamp?.toDate()}
                 </Moment>
                 <span>Views</span>
               </div>

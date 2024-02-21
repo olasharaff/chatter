@@ -12,10 +12,15 @@ import Header from "./component/DashBoard/DashSideBars";
 import PrivateRoute from './utilities/PrivateRoute.jsx'
 import CreatePosting from "./component/DashBoard/Createposting";
 import Spinner from "./utilities/Spinner";
+import Analytics from "./component/DashBoard/Overview/Analytics.jsx";
 const Home  = lazy(() => import ("./pages/Home"))
 const Feed = lazy(() => import("./component/DashBoard/Overview/Feed"))
 const Bookmark = lazy(() => import("./component/DashBoard/Overview/Bookmark"))
 const TeamBlog = lazy(() => import("./component/DashBoard/Overview/Teamblog"))
+const Programming = lazy(() => import("./component/DashBoard/TrendingTags/Programming"))
+const Politics = lazy(() => import("./component/DashBoard/TrendingTags/Politics"))
+const Machine = lazy(() => import("./component/DashBoard/TrendingTags/MachineLearning"))
+const Data = lazy(() => import("./component/DashBoard/TrendingTags/DataScience"))
 
 
 
@@ -52,7 +57,24 @@ function AppContent() {
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Feed />} />
           </Route>
-          
+
+          <Route path="/programming" element={<PrivateRoute />}>
+            <Route path="/programming" element={<Programming />} />
+          </Route>
+          <Route path="/machine-learning" element={<PrivateRoute />}>
+            <Route path="/machine-learning" element={<Machine />} />
+          </Route>
+          <Route path="/politics" element={<PrivateRoute />}>
+            <Route path="/politics" element={<Politics />} />
+          </Route>
+          <Route path="/analytic" element={<PrivateRoute />}>
+            <Route path="/analytic" element={<Analytics />} />
+          </Route>
+
+          <Route path="/data-science" element={<PrivateRoute />}>
+            <Route path="/data-science" element={<Data />} />
+          </Route>
+
           <Route path="/create-posting" element={<PrivateRoute />}>
             <Route path="/create-posting" element={<CreatePosting />} />
           </Route>

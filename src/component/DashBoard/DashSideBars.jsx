@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 import logo from "../../assets/img/chatter.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Overview, Personal, TrendingTags } from "../../data/DashBoard";
+import { toast } from "react-toastify";
 
 export default function DashBars() {
   
@@ -29,6 +30,7 @@ export default function DashBars() {
   const handleLogOut = () => {
     auth.signOut();
     navigate("/");
+    toast.success("Successful Logged Out")
   };
 
   // fetch picture using axios and useEffect

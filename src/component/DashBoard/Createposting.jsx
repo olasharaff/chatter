@@ -13,11 +13,13 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
 
 export default function Createposting() {
  const [isAttachment, setIsAttachment] = useState(false);
  const [isInput, setIsInput] = useState(false)
  const [isLoading, setIsLoading] = useState(false);
+ const navigate = useNavigate()
 
   const handleAttached = () =>{
     setIsAttachment(!isAttachment)
@@ -140,7 +142,7 @@ async function onSubmitContent(e) {
    
   setIsLoading(false);
   toast.success("Listing created successfully");
-  // navigate(`/category/${copyFormData.type}/${docRef.id}`);
+  navigate('/dashboard');
 }
   if (isLoading) {
     return <Spinner/>
