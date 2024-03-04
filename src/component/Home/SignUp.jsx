@@ -74,7 +74,7 @@ export default function SignUp() {
        
       navigate("/dashboard");
 
-       console.warn("what is happening... 7");
+       console.warn("what is happening... ..7");
       setLoading(true)
       toast.success("Account created successfully");
 

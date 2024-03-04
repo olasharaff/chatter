@@ -8,49 +8,66 @@ import Moment from 'react-moment';
 import { MdOutlineMenuBook } from "react-icons/md";
 import { HiOutlineChartSquareBar } from "react-icons/hi"
 
+interface Posting {
+  id: string;
+  data: {
+    title: string;
+    content: string;
+    imgUrls: string;
+    timeStamp: any;
+    userRef: string;
+  };
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+}
 
+interface RandomUser {
+  results: {
+    picture: {
+      medium: string;
+    };
+  };
+}
 
-export default function Foryou() {
-  const [postings, setPostings] = useState([]);
-  const [randomPicture, setRandomPicture] = useState()
-  const [loading, setLoading] = useState(true)
+export default function Foryou(): JSX.Element {
+ const [postings, setPostings] = useState<Posting[]>([]);
+  const [randomPicture, setRandomPicture] = useState<RandomUser | undefined>();
+  const [loading, setLoading] = useState(true);
   
   
   useEffect(() => {
     const fetchPostings = async () => {
       try {
-        const response = await axios.get(
-          "https://randomuser.me/api/?results=1"
-        )
-       
+        const response = await axios.get('https://randomuser.me/api/?results=1');
         const data = response.data.results[0];
-      setRandomPicture(data);
-        const querySnapshot = await getDocs(
-          collection(db, "postings"),
-          orderBy("timeStamp", "asc")
+        setRandomPicture(data);
+
+        const querySnapshot = await getDocs(collection(db, 'postings'), orderBy('timeStamp', 'asc'));
+        const postingsData: Posting[] = [];
+        await Promise.all(
+          querySnapshot.docs.map(async (doc) => {
+            const userRef = doc.data().userRef;
+            const userDoc = await getDoc(docs(db, 'users', userRef));
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              const posting: Posting = {
+                id: doc.id,
+                data: doc.data(),
+                user: userData,
+              };
+              postingsData.push(posting);
+            }
+          })
         );
-        const postingsData = [];
-       await Promise.all(
-         querySnapshot.docs.map(async (doc) => {
-           const userRef = doc.data().userRef; // Assuming userRef is the uid of the user who posted
-           const userDoc = await getDoc(docs(db, "users", userRef));
-           if (userDoc.exists()) {
-             const userData = userDoc.data();
-             postingsData.push({
-               id: doc.id,
-               data: doc.data(),
-               user: userData,
-             });
-           }
-         })
-       );
         setPostings(postingsData);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching postings:", error);
+        console.error('Error fetching postings:', error);
       }
     };
-   
+
     fetchPostings();
   }, []);
 

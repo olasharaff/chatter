@@ -15,6 +15,8 @@ import {
 } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 
+
+
 export default function Createposting() {
  const [isAttachment, setIsAttachment] = useState(false);
  const [isInput, setIsInput] = useState(false)

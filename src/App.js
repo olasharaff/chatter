@@ -5,22 +5,22 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import Authenticated from "./pages/Authenticate";
+import Authenticated from "./pages/Authenticate.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./component/DashBoard/DashSideBars";
+import Header from "./component/DashBoard/DashSideBars.jsx";
 import PrivateRoute from './utilities/PrivateRoute.jsx'
-import CreatePosting from "./component/DashBoard/Createposting";
-import Spinner from "./utilities/Spinner";
+import CreatePosting from "./component/DashBoard/Createposting.jsx";
+import Spinner from "./utilities/Spinner.jsx";
 import Analytics from "./component/DashBoard/Overview/Analytics.jsx";
-const Home  = lazy(() => import ("./pages/Home"))
-const Feed = lazy(() => import("./component/DashBoard/Overview/Feed"))
-const Bookmark = lazy(() => import("./component/DashBoard/Overview/Bookmark"))
-const TeamBlog = lazy(() => import("./component/DashBoard/Overview/Teamblog"))
-const Programming = lazy(() => import("./component/DashBoard/TrendingTags/Programming"))
-const Politics = lazy(() => import("./component/DashBoard/TrendingTags/Politics"))
-const Machine = lazy(() => import("./component/DashBoard/TrendingTags/MachineLearning"))
-const Data = lazy(() => import("./component/DashBoard/TrendingTags/DataScience"))
+const Home  = lazy(() => import ("./pages/Home.jsx"))
+const Feed = lazy(() => import("./component/DashBoard/Overview/Feed.tsx"))
+const Bookmark = lazy(() => import("./component/DashBoard/Overview/Bookmark.jsx"))
+const TeamBlog = lazy(() => import("./component/DashBoard/Overview/Teamblog.jsx"))
+const Programming = lazy(() => import("./component/DashBoard/TrendingTags/Programming.jsx"))
+const Politics = lazy(() => import("./component/DashBoard/TrendingTags/Politics.jsx"))
+const Machine = lazy(() => import("./component/DashBoard/TrendingTags/MachineLearning.jsx"))
+const Data = lazy(() => import("./component/DashBoard/TrendingTags/DataScience.jsx"))
 
 
 
