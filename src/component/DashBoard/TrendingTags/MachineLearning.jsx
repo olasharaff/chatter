@@ -59,24 +59,18 @@ export default function MachineLearning() {
   return (
     <div className="m-32 px-24">
       {postings.map((posting) => (
-        <div className="border-b-2">
-          <div key={posting.id} className="max-w-lg mb-3 px-4 py-2 ">
+        <div key={posting.id} className="border-b-2">
+          <div className="max-w-lg mb-3 px-4 py-2 ">
             <div className="flex gap-4 items-center">
               <div>
-                <img
-                  src={randomPicture.picture.medium}
-                  alt="User"
-                  className="w-16  rounded-full"
-                />
+                <img src={randomPicture.picture.medium} alt="User" className="w-16  rounded-full" />
               </div>
               <div className="text-2xl font-bold">
                 <span>{posting.user.firstName} </span>
                 <span>{posting.user.lastName}</span>
 
                 <div className="text-xs font-normal text-[#626262]">
-                  <Moment format="MMM DD, YYYY">
-                    {posting.data.timeStamp?.toDate()}
-                  </Moment>
+                  <Moment format="MMM DD, YYYY">{posting.data.timeStamp?.toDate()}</Moment>
                 </div>
               </div>
             </div>
@@ -86,13 +80,11 @@ export default function MachineLearning() {
               <MdOutlineMenuBook />
               <Moment fromNow>{posting.data.timeStamp?.toDate()}</Moment>
             </div>
-            <p className="text-sm text-[#626262] mb-2">
-              {posting.data.content}
-            </p>
+            <p className="text-sm text-[#626262] mb-2">{posting.data.content}</p>
             <img
               src={posting.data.imgUrls}
               alt="posting"
-              lazy
+              loading="lazy"
               className="rounded-md mb-2 shadow-lg hover:shadow-xl focus:shadow-2xl transition duration-150 ease-in-out object-cover"
             />
             <div className="flex justify-between  text-[#626262] text-xs ">
@@ -110,5 +102,5 @@ export default function MachineLearning() {
         </div>
       ))}
     </div>
-  );
+  )
 }

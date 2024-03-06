@@ -70,7 +70,9 @@ async function onSubmitContent(e) {
   }
   
   async function storeImage(image) {
+    
     try {
+      
       const downloadURL = new Promise((resolve, reject) => {
        
         const storage = getStorage();
@@ -85,7 +87,9 @@ async function onSubmitContent(e) {
            
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+          if (typeof console !== 'undefined') {
+            console.log('Upload is ' + progress + '% done')
+          }
             switch (snapshot.state) {
               case "paused":
                 console.log("Upload is paused");
@@ -124,6 +128,7 @@ async function onSubmitContent(e) {
   const imgUrls = await Promise.all(
     [...images].map((image) => storeImage(image))
   ).catch((error) => {
+    console.warn(error)
     setIsLoading(false);
     toast.error("Images not uploaded");
     return [];

@@ -1,3 +1,4 @@
+import React from "react";
 import HomeNav
  from "../component/Home/HomeNav";
  import HomeFooter from "../component/Home/HomeFooter";

@@ -123,7 +123,7 @@ const [randomPicture, setRandomPicture] = useState();
                   <img
                     src={posting.data.imgUrls}
                     alt="posting"
-                    lazy
+                    loading='lazy'
                     className="rounded-md mb-2 shadow-lg hover:shadow-xl focus:shadow-2xl transition duration-150 ease-in-out object-cover"
                   />
                   <div className="flex justify-between  text-[#626262] text-xs ">

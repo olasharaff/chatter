@@ -1,12 +1,14 @@
 
-import { collection, getDoc, getDocs, orderBy, doc as docs } from 'firebase/firestore';
+import { collection, getDoc, getDocs, orderBy, doc as docs, Timestamp as timestamp } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../firebase';
 import Spinner from '../../../utilities/Spinner';
 import axios from 'axios';
 import Moment from 'react-moment';
 import { MdOutlineMenuBook } from "react-icons/md";
-import { HiOutlineChartSquareBar } from "react-icons/hi"
+import { HiOutlineChartSquareBar } from "react-icons/hi";
+
+
 
 interface Posting {
   id: string;
@@ -14,7 +16,7 @@ interface Posting {
     title: string;
     content: string;
     imgUrls: string;
-    timeStamp: any;
+    timeStamp: timestamp;
     userRef: string;
   };
   user: {
@@ -24,16 +26,17 @@ interface Posting {
 }
 
 interface RandomUser {
-  results: {
+ results:{
     picture: {
       medium: string;
     };
-  };
+    }[];
+ 
 }
 
-export default function Foryou(): JSX.Element {
+export default function Foryou(){
  const [postings, setPostings] = useState<Posting[]>([]);
-  const [randomPicture, setRandomPicture] = useState<RandomUser | undefined>();
+  const [randomPicture, setRandomPicture] = useState<RandomUser[]>([]);
   const [loading, setLoading] = useState(true);
   
   
@@ -41,7 +44,8 @@ export default function Foryou(): JSX.Element {
     const fetchPostings = async () => {
       try {
         const response = await axios.get('https://randomuser.me/api/?results=1');
-        const data = response.data.results[0];
+        const data = response.data.results[0]
+      
         setRandomPicture(data);
 
         const querySnapshot = await getDocs(collection(db, 'postings'), orderBy('timeStamp', 'asc'));
@@ -77,8 +81,8 @@ export default function Foryou(): JSX.Element {
   return (
     <div>
       {postings.map((posting) => (
-        <div className="border-b-2">
-          <div key={posting.id} className="max-w-lg mb-3 px-4 py-2 ">
+        <div key={posting.id} className="border-b-2">
+          <div  className="max-w-lg mb-3 px-4 py-2 ">
             <div className="flex gap-4 items-center">
               <div>
                 <img
@@ -108,7 +112,7 @@ export default function Foryou(): JSX.Element {
             <img
               src={posting.data.imgUrls}
               alt="posting"
-              lazy
+              loading='lazy'
               className="rounded-md mb-2 shadow-lg hover:shadow-xl focus:shadow-2xl transition duration-150 ease-in-out object-cover"
             />
             <div className="flex justify-between  text-[#626262] text-xs ">

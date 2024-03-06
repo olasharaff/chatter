@@ -1,3 +1,4 @@
+import React from 'react'
 import feed from '../assets/img/Iconsax/Linear/Vector.svg'
 import team from '../assets/img/Vector-1.svg'
 import draft from '../assets/img/Vector-2.svg'
