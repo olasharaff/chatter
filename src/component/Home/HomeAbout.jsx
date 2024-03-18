@@ -1,7 +1,7 @@
 import React from 'react'
 import { HomeAbout1, HomeAbout2, HomeAbout3 } from "../../data/HomeData";
 import backImg from "../../assets/img/home.svg";
-console.log(backImg);
+
 
 export default function HomeAbout() {
   return (
