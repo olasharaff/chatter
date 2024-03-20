@@ -1,12 +1,19 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+
+interface FormData{
+  email: string;
+  password: string;
+}
+
 export default function SignIn() {
+
   const navigate = useNavigate()
-    const [isFormData, setIsFormData] = useState(
+    const [isFormData, setIsFormData] = useState<FormData>(
         {
             email: '',
             password: '',
@@ -14,12 +21,13 @@ export default function SignIn() {
     )
     const {email, password} = isFormData
 
-    const handleSelectChange = (e) => {
+    const handleSelectChange = (e: ChangeEvent<HTMLInputElement>):void => {
+      const { id, value } = e.target;
         setIsFormData((prevState) => ({
-            ...prevState, [e.target.id]: e.target.value
+            ...prevState,  [id]: value,
         }))
     }
-    async function onSubmitForm(e){
+    async function onSubmitForm(e: FormEvent<HTMLFormElement>): Promise<void>{
         e.preventDefault()
 
        try {

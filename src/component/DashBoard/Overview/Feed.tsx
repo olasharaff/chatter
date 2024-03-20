@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Recent from './Recent'
 import Feature from './Feature.jsx';
 import Foryou from './Foryou.tsx';
-import Createposting from '../Createposting';
+import Createposting from '../Createposting.tsx';
 
 export default function Feed(): JSX.Element {
   const [activeContent, setActiveContent] = useState<string>('foryou');

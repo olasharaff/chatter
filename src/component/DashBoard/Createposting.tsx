@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import imgIcon from '../../assets/img/images.svg'
 import vidIcon from "../../assets/img/videos.svg";
@@ -16,7 +16,17 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 
+interface FormData {
+  title: string;
+  content: string;
+  programming: boolean;
+  dataSciences: boolean;
+  technology: boolean;
+  machineLearning: boolean;
+  politics: boolean;
+  images: FileList | null
 
+}
 export default function Createposting() {
  const [isAttachment, setIsAttachment] = useState(false);
  const [isInput, setIsInput] = useState(false)
@@ -33,7 +43,7 @@ export default function Createposting() {
    
    
 
- const [formData, setFormData] = useState (
+ const [formData, setFormData] = useState<FormData> (
     {
       title: "",
       content: "",
@@ -42,7 +52,7 @@ export default function Createposting() {
       technology: false,
       machineLearning: false,
       politics: false,
-      images: {}
+      images: null
 
   })
    
@@ -57,19 +67,19 @@ export default function Createposting() {
       images,
     } = formData;
 
-async function onSubmitContent(e) {
+async function onSubmitContent(e: FormEvent<HTMLFormElement>): Promise<void>{
   e.preventDefault();
   setIsLoading(true);
 
  
  
-  if (images.length > 2) {
+  if (images && images.length > 2) {
     setIsLoading(false);
     toast.error("Maximum of 6 files");
     return;
   }
   
-  async function storeImage(image) {
+  async function storeImage(image: File): Promise<string>{
     
     try {
       

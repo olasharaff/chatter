@@ -13,4 +13,5 @@ Object.defineProperties(globalThis, {
   TextEncoder: { value: TextEncoder },
 })
 
+// global.structuredClone = (v) => JSON.parse(JSON.stringify(v))
 // Object.assign(global, { TextDecoder, TextEncoder })

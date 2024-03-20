@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import {
  
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../../firebase";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {  doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,9 +13,19 @@ import OAuth from "../../utilities/OAuth";
 import {FaLinkedin } from "react-icons/fa";
 import Spinner from "../../utilities/Spinner";
 
+interface FormData{
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  comPassword: string;
+  
+
+}
+
 export default function SignUp() {
   const [loading, setLoading] = useState(false)
-  const [isFormData, setIsFormData] = useState({
+  const [isFormData, setIsFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -24,17 +34,18 @@ export default function SignUp() {
   });
 
 
-  const handleSelectChange = (e) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = e.target;
     setIsFormData((prevState) => ({
       ...prevState,
-      [e.target.id]: e.target.value,
+      [id]: value,
     }));
   };
 
   const { firstName, lastName, email, password, comPassword } = isFormData;
   const navigate = useNavigate();
 
-  async function onSubmitForm (e){
+  async function onSubmitForm (e: FormEvent<HTMLFormElement>): Promise<void>{
     e.preventDefault();
 
     if (password !== comPassword) {
@@ -62,7 +73,7 @@ export default function SignUp() {
         console.warn("what is happening... 3");
 
       const formDataCopy = { ...isFormData };
-      delete formDataCopy.password
+     
 
         console.warn("what is happening... 4");
 

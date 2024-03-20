@@ -8,18 +8,20 @@ import SignIn from './component/Home/SignIn';
 // import 'text-encoding-utf-8'
 
 
-
-// testing for create posting routes
-
-test('render learn react link', () => {
+describe('main', ()=>{
+test('Create component renders correctly', () => {
     render(<Router>
         <CreatePosting />
         </Router>);
     const linkElement = screen.getByText(/Attached your files/i);
     expect(linkElement).toBeInTheDocument()
 })
+})
+// testing for create posting routes
+
+
 // testing for Home Pages landPage
-test('render learn react link', () => {
+test('Home page renders correctly', () => {
     render(<Router>
         <Home/>
         </Router>
@@ -30,7 +32,7 @@ test('render learn react link', () => {
 
 // testing for SignIn component
 
-test('render learn react', () =>{
+test.only('Sign-In component renders correctly', () =>{
     render(<Router>
         <SignIn />
     </Router>)

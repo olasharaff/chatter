@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./component/DashBoard/DashSideBars.jsx";
 import PrivateRoute from './utilities/PrivateRoute.jsx'
-import CreatePosting from "./component/DashBoard/Createposting.jsx";
+import CreatePosting from "./component/DashBoard/Createposting.tsx";
 import Spinner from "./utilities/Spinner.jsx";
 import Analytics from "./component/DashBoard/Overview/Analytics.jsx";
 const Home  = lazy(() => import ("./pages/Home.jsx"))
