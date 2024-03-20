@@ -34,6 +34,10 @@ export default function HomeFooter() {
           </div>
         </div>
       </div>
+      <div className="text-xs text-center py-2 text-[#543EE0]">
+        <p className="text-center ">&copy; 2024 Chatter, Inc. All rights reserved.</p>
+        <p>sharafabdulrahman@yahoo.com</p>
+      </div>
     </footer>
-  );
+  )
 }

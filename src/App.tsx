@@ -46,6 +46,7 @@ function AppContent() {
       <Suspense fallback={<Spinner />}>
         {showHeader() && <Header />}
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Authenticated />} />
           <Route path="/bookmark" element={<PrivateRoute />}>
