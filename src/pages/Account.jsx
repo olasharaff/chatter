@@ -47,9 +47,6 @@ if(loading){
           </div>
         </div>
 
-        {/* Line  */}
-
-        {/* Table  */}
         <div className="">
           <div className=" container mx-auto px-4 max-w-7xl my-5">
             <div className="relative overflow-x-auto shadow-md sm:rounded-xl">

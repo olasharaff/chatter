@@ -5,7 +5,28 @@ import Group1 from "../assets/img/Group 1.svg"
 import Group2 from "../assets/img/Group 2.svg"
 import Group3 from "../assets/img/Group 3.svg"
 
-
+const HomeNavs = [
+  {
+    id: 1,
+    title: "Homes",
+    url: "Home"
+  },
+  {
+    id: 2,
+    title: "About Us",
+    url: "About"
+  },
+  {
+    id: 3,
+    title: "Contact",
+    url: "Contact"
+  },
+  {
+    id: 4,
+    title: "Blogs",
+    url: "/dashboard"
+  }
+]
 const HomeSliderData1 = [
   {
     id: 1,
@@ -70,4 +91,4 @@ const HomeAbout3 = [
   }
   
 ]
-export { HomeSliderData1, HomeSliderData2, HomeAbout1, HomeAbout2, HomeAbout3 };
+export { HomeNavs, HomeSliderData1, HomeSliderData2, HomeAbout1, HomeAbout2, HomeAbout3 }

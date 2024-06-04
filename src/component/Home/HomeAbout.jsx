@@ -13,7 +13,7 @@ export default function HomeAbout() {
           backgroundColor: "#0000008C",
         }}
       >
-        <div className="absolute inset-0 bg-[#000000b6] opacity-25">
+        <section id='Home' className="absolute inset-0 bg-[#000000b6] opacity-25">
           <div className="max-w-lg mx-auto lg:py-[15%] py-[40%] text-white px-6">
             <h1 className="font-extrabold text-[25px] mb-4">
               {" "}
@@ -27,11 +27,11 @@ export default function HomeAbout() {
               Get Started
             </button>
           </div>
-        </div>
+        </section>
       </div>
       <div className="px-6 ">
         {HomeAbout1.map((item, index) => (
-          <div key={index} className="px-6 max-w-6xl mx-auto flex flex-wrap gap-10 ">
+          <section id='About' key={index} className="px-6 max-w-6xl mx-auto flex flex-wrap gap-10 ">
             <div className="max-w-[540px]">
               <h1 className="mb-8 text-4xl font-semibold">{item.title}</h1>
               <p className="text-sm">{item.content}</p>
@@ -39,7 +39,7 @@ export default function HomeAbout() {
             <div>
               <img src={item.image} alt="about" className="" />
             </div>
-          </div>
+          </section>
         ))}
         {HomeAbout2.map((item, index) => (
           <div key={index} className="px-6 max-w-4xl mx-auto my-9">
