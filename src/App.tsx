@@ -13,6 +13,8 @@ import PrivateRoute from './utilities/PrivateRoute.jsx'
 import CreatePosting from "./component/DashBoard/Createposting.tsx";
 import Spinner from "./utilities/Spinner.jsx";
 import Analytics from "./component/DashBoard/Overview/Analytics.jsx";
+import MyState from './context/myState.jsx'
+import Posting from "./component/DashBoard/Overview/Posting.jsx";
 const Home  = lazy(() => import ("./pages/Home.jsx"))
 const Feed = lazy(() => import("./component/DashBoard/Overview/Feed.tsx"))
 const Bookmark = lazy(() => import("./component/DashBoard/Overview/Bookmark.jsx"))
@@ -21,6 +23,7 @@ const Programming = lazy(() => import("./component/DashBoard/TrendingTags/Progra
 const Politics = lazy(() => import("./component/DashBoard/TrendingTags/Politics.jsx"))
 const Machine = lazy(() => import("./component/DashBoard/TrendingTags/MachineLearning.jsx"))
 const Data = lazy(() => import("./component/DashBoard/TrendingTags/DataScience.jsx"))
+const Account = lazy(() => import("./pages/Account.jsx"))
 
 
 
@@ -43,6 +46,7 @@ function AppContent() {
 
   return (
     <>
+    <MyState>
       <Suspense fallback={<Spinner />}>
         {showHeader() && <Header />}
         <Routes>
@@ -71,6 +75,9 @@ function AppContent() {
           <Route path="/analytic" element={<PrivateRoute />}>
             <Route path="/analytic" element={<Analytics />} />
           </Route>
+            <Route path="/posting/:id" element={<PrivateRoute />}>
+            <Route path="/posting/:id" element={<Posting />} />
+          </Route>
 
           <Route path="/data-science" element={<PrivateRoute />}>
             <Route path="/data-science" element={<Data />} />
@@ -79,6 +86,9 @@ function AppContent() {
           <Route path="/create-posting" element={<PrivateRoute />}>
             <Route path="/create-posting" element={<CreatePosting />} />
           </Route>
+          <Route path="/account" element={<PrivateRoute />}>
+            <Route path="/account" element={<Account />}/>
+            </Route>
         </Routes>
       </Suspense>
       <ToastContainer
@@ -93,6 +103,7 @@ function AppContent() {
         pauseOnHover
         theme="dark"
       />
+      </MyState>
     </>
   );
 }

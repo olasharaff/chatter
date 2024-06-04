@@ -8,7 +8,7 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 import { toast } from "react-toastify";
 import TopNavbar from '../DashTopBar'
-;<TopNavbar className="md:hidden" />
+
 
 
 export default function Programming() {
