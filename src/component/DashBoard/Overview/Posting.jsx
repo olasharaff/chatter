@@ -7,6 +7,7 @@ import comment from '../../../assets/img/comment.svg'
 import { HiOutlineChartSquareBar } from 'react-icons/hi'
 import Moment from 'react-moment'
 import { MdOutlineMenuBook } from 'react-icons/md'
+import Loader from '../../../utilities/Spinner'
 
 export default function Posting() {
   const [getPost, setGetPost] = useState()
@@ -29,7 +30,9 @@ export default function Posting() {
 
     fetchListing()
   }, [params.id, setLoading])
-
+  if(loading){
+    return <Loader/>
+  }
   console.log(getPost)
   return (
     <div className="border-b-2 ">

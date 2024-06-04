@@ -3,21 +3,24 @@ import {auth} from '../firebase'
 import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext'
 import Moment from 'react-moment';
+import Spinner from '../utilities/Spinner';
 
 
 export default function Account() {
   const context = useContext(MyContext)
-  const { handleLogOut, isPosting, deletePosts } = context
+  const { handleLogOut, isPosting, deletePosts, loading } = context
   const [isformDate] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   })
   const {name, email} = isformDate
-  console.log(isPosting)
+if(loading){
+  return <Spinner/>
+}
  
   return (
-    <>
-      <div className="py-10">
+    <div className="mx-36 my-14 px-24">
+      <div className="max-w-4xl mx-auto border-2 rounded-md px-6 py-4 h-full">
         <div className="flex flex-wrap justify-center items-center  gap-5">
           <div>
             <img
@@ -54,7 +57,7 @@ export default function Account() {
               <table className="w-full border-2 border-white shadow-md text-sm text-left">
                 {/* thead  */}
                 <thead>
-                  <tr className='text-black font-extrabold text-sm'>
+                  <tr className="text-black font-extrabold text-sm">
                     <th scope="col" className="px-6 py-3">
                       S.No
                     </th>
@@ -74,7 +77,7 @@ export default function Account() {
                 </thead>
 
                 {/* tbody  */}
-                {isPosting !== null && isPosting.length > 0 && (
+                {isPosting.length > 0 ? (
                   <>
                     {isPosting.map((item, index) => {
                       const { id } = item
@@ -100,12 +103,16 @@ export default function Account() {
                       )
                     })}
                   </>
+                ) : (
+                  <>
+                    <h1>No Posting Found</h1>
+                  </>
                 )}
               </table>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

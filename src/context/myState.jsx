@@ -68,7 +68,7 @@ setLoading(false)
     }
   }
   return (
-    <MyContext.Provider value={{ mode, toggleMode, handleLogOut, isPosting, deletePosts, }}>
+    <MyContext.Provider value={{ mode, toggleMode, handleLogOut, isPosting, deletePosts, loading }}>
       {props.children}
     </MyContext.Provider>
   )
